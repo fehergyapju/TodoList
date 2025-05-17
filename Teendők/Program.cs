@@ -44,6 +44,8 @@ namespace Teendők
 
             teendomenu.Add("Teendő megcsinálása", Megcsinalas);
 
+            teendomenu.Add("Megcsinálás visszavonása", MegcsinalasVisszavonasa);
+
             teendomenu.Add("Megcsinált teendők", MegcsinaltTeendok);
 
             teendomenu.Add("Nem megcsinált teendők", NemMegcsinaltTeendok);
@@ -51,6 +53,32 @@ namespace Teendők
             teendomenu.Add("Kilépés", teendomenu.CloseMenu);
 
             teendomenu.Show();
+        }
+
+        static void MegcsinalasVisszavonasa()
+        {
+            Console.WriteLine("Add meg az azonosítóját a teendőnek!");
+
+            try
+            {
+                int bekertszam = int.Parse(Console.ReadLine());
+
+                foreach (var Teendom in Teendok)
+                {
+                    //Ha az azonosító egyezik és nincs megcsinálva a teendő
+                    if (Teendom.Azonosito == bekertszam && Teendom.Megcsinaltae == true )
+                    {
+                        Teendom.Megcsinaltae = false;
+                        Console.WriteLine("Megcsinálás visszavonva!");
+                    }
+                }
+            }
+            catch
+            {
+                Console.WriteLine("HIBA: Nem jó számot adtál meg.");
+            }
+
+            Console.ReadLine();
         }
 
         static void Megcsinalas()
@@ -63,7 +91,7 @@ namespace Teendők
 
                 foreach (var Teendom in Teendok)
                 {
-                    if (Teendom.Azonosito == bekertszam)
+                    if (Teendom.Azonosito == bekertszam && Teendom.Megcsinaltae == false)
                     {
                         Teendom.Megcsinaltae = true;
                         Console.WriteLine("Teendő megcsinálva!");
